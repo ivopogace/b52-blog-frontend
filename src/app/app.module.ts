@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import {FormsModule} from '@angular/forms';
+import { ProfileComponent } from './profile/profile.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
   {path: 'kontakt', component: KontaktComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'profile', component: ProfileComponent},
   ];
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ const appRoutes: Routes = [
     PopnewsComponent,
     KontaktComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
