@@ -1,0 +1,22 @@
+#footer {                           /* Footeri */
+  background-color: transparent;
+  float: left;
+  margin-top: 10px;
+  width: 100%;
+  display: block;
+}
+
+.copyright{              /* copyright */
+  color:black;
+  text-align: center;
+}
+
+
+.linke ul li {                                    /* Linkimi */
+  float: right;
+  display: inline;
+  font-size: 13px;
+  height: 35px;
+  list-style-type: none;
+  width:35px;
+}
