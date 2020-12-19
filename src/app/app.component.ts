@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TokenStorageService} from './_services/token-storage.service';
 
 @Component({
@@ -6,7 +6,7 @@ import {TokenStorageService} from './_services/token-storage.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'b52-blog-frontend';
   navbarOpen = false;
   private roles: string[];
@@ -23,7 +23,6 @@ export class AppComponent {
   constructor(private tokenStorageService: TokenStorageService) {
   }
 
-  // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
 
