@@ -3,9 +3,9 @@
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-md-3">
       <!-- NEWS-->
-      <div class="col-1" *ngIf="currentUser">
+      <div class="col-1">
 
-        <div class="col mb-4" *ngFor="let post of posts.slice(0,3)">
+        <div class="col mb-4" *ngFor="let post of posts$ | async">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">{{post.tittle}}</h5>
