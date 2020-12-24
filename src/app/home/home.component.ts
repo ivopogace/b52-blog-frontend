@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {PostService} from '../_services/post.service';
-import {Observable} from 'rxjs';
 
 
 @Component({
@@ -20,4 +19,7 @@ export class HomeComponent implements OnInit {
   }
 
 
+  getPostDetails(): void {
+
+  }
 }

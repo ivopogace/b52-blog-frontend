@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-  <div class="row row-cols-1">
+  <div class="row row-cols-2">
 
     <div class="col mb-12">
 
@@ -14,13 +14,24 @@
 
         <div class="card-body" id="respond">
 
-          <form action="api/public/comment" method="post" id="commentform">
+          <form #postForm="ngForm" (ngSubmit)="onCreateComment(postForm.value)">
             <div class="form-group">
-              <label for="exampleFormControlTextarea1"><h6 class="card-title">Leave a Comment</h6></label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+              <label for="comment"><h6 class="card-title">Leave a Comment</h6></label>
+              <textarea class="form-control" id="comment" rows="4" required ngModel name="comment"></textarea>
               <button class="btn btn-primary" type="submit">Post Comment</button>
             </div>
           </form>
+
+          <div class="row">
+            <div class="col-xs-12 col-md-6 col-md-offset-3">
+              <p *ngIf="loadedComments.length < 1">No posts available!</p>
+              <ul class="list-group" *ngIf="loadedComments.length >= 1">
+                <li class="list-group-item" *ngFor="let comment of loadedComments">
+                  <p>{{comment.comment}}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
 
         </div>
 
