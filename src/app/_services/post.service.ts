@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
+import {Post} from '../home/post.model';
 
 const REST_API_SERVER = 'http://localhost:8080/api/public/posts';
 const REST_API_SERVER2 = 'http://localhost:8080/api/public/category/{id}/posts';
@@ -11,21 +12,44 @@ const REST_API_SERVER2 = 'http://localhost:8080/api/public/category/{id}/posts';
   providedIn: 'root'
 })
 export class PostService {
-
+  loadedPosts: Post[];
 
   constructor(private http: HttpClient) {
   }
 
 
-  getPosts(): Observable<any> {
-    return this.http.get(REST_API_SERVER);
+  getPosts(): void {
+    // @ts-ignore
+    this.loadedPosts = this.fetchPosts();
 
   }
+
+  // tslint:disable-next-line:typedef
+  private fetchPosts() {
+    this.http.get<{ [key: string]: Post }>(REST_API_SERVER).pipe(map(responseData => {
+      const postsArray: Post[] = [];
+      for (const key in responseData) {
+        if (responseData.hasOwnProperty(key)) {
+          postsArray.push({...responseData[key]});
+        }
+      }
+      return postsArray;
+    })).subscribe(posts => {
+        console.log(posts);
+        // @ts-ignore
+        this.loadedPosts = posts;
+      }
+    );
+
+  }
+
+
   /** Log a PostService message with the MessageService */
   // tslint:disable-next-line:typedef
   private log(message: string) {
     this.log(`PostService: ${message}`);
   }
+
   /**
    * Handle Http operation that failed.
    * Let the app continue.
@@ -46,6 +70,7 @@ export class PostService {
       return of(result as T);
     };
   }
+
   /** GET Post by id. Will 404 if id not found */
   getPostByID(id: number): Observable<any> {
     const url = `${REST_API_SERVER}/${id}`;

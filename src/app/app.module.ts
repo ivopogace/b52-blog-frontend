@@ -27,9 +27,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 const appRoutes: Routes = [
   { path: '',   redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
-  {path: 'news', component: NewsComponent},
-  {path: 'sport', component: SportComponent},
-  {path: 'popnews', component: PopnewsComponent},
+  {path: 'home/news', component: NewsComponent},
+  {path: 'home/sport', component: SportComponent},
+  {path: 'home/popnews', component: PopnewsComponent},
   {path: 'kontakt', component: KontaktComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},

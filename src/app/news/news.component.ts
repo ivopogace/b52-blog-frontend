@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import {AuthService} from '../_services/auth.service';
+import {TokenStorageService} from '../_services/token-storage.service';
 
 const REST_API_SERVER = 'http://localhost:8080/api/public/comments';
 
@@ -11,25 +13,34 @@ const REST_API_SERVER = 'http://localhost:8080/api/public/comments';
 })
 export class NewsComponent implements OnInit {
   loadedComments = [];
+  isLoggedIn: boolean;
+  currentUser: any;
 
-  constructor(private  http: HttpClient) {
+  constructor(private  http: HttpClient, private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
     this.fetchComments();
+    this.currentUser = this.tokenStorageService.getUser();
+    console.log(this.currentUser);
+
   }
 
   // tslint:disable-next-line:typedef
   onCreateComment(postComment: { comment: string }) {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
     // Send Http request
-    this.http
-      .post(
-        REST_API_SERVER,
-        postComment
-      )
-      .subscribe(responseData => {
-        console.log(responseData);
-      });
+    if (this.isLoggedIn) {
+      this.http
+        .post(
+          REST_API_SERVER,
+          postComment
+        )
+        .subscribe(responseData => {
+          console.log(responseData);
+        });
+    }
+
   }
 
   onGetComments(): void {

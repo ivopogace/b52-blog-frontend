@@ -1,5 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {PostService} from '../_services/post.service';
+import {Router} from '@angular/router';
+import {map} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {Post} from './post.model';
+
+const REST_API_SERVER = 'http://localhost:8080/api/public/posts';
+const REST_API_POSTSBYCATEGORYID = 'http://localhost:8080/api/public/category/:id/posts';
 
 
 @Component({
@@ -8,18 +15,42 @@ import {PostService} from '../_services/post.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  posts$;
+  loadedPosts = [];
 
-  constructor(private postService: PostService) {
+  constructor(private http: HttpClient, private postService: PostService, private  router: Router) {
   }
 
 
   ngOnInit(): void {
-    this.posts$ = this.postService.getPosts();
+    this.fetchPosts();
+  }
+
+  // tslint:disable-next-line:typedef
+  getPosts() {
+    this.fetchPosts();
+  }
+
+  // tslint:disable-next-line:typedef
+  private fetchPosts() {
+    this.http.get<{ [key: string]: Post }>(REST_API_SERVER).pipe(map(responseData => {
+      const postsArray: Post[] = [];
+      for (const key in responseData) {
+        if (responseData.hasOwnProperty(key)) {
+          postsArray.push({...responseData[key]});
+        }
+      }
+      return postsArray; // we return an array of posts
+    })).subscribe(posts => {
+        console.log(posts);
+        // @ts-ignore
+        this.loadedPosts = posts;
+      }
+    );
+
   }
 
 
   getPostDetails(): void {
-
+    this.router.navigateByUrl('home/news');
   }
 }

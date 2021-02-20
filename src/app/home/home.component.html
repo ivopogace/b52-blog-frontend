@@ -1,16 +1,17 @@
 <div class="container-fluid" >
+
   <div class="row">
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-md-3">
       <!-- NEWS-->
       <div class="col-1">
 
-        <div class="col mb-4" *ngFor="let post of posts$ | async">
+        <div class="col mb-4" *ngFor="let post of loadedPosts.slice(0,3)">
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">{{post.tittle}}</h5>
               <p class="card-text">{{post.body}}</p>
-              <img [src]="post.image" class="card-img-top" alt="..." (click)="getPostDetails()">
+              <img [src]="post.image" class="card-img-top" alt="..." (click)="getPostDetails()" style="cursor: pointer">
             </div>
           </div>
         </div>
@@ -20,33 +21,12 @@
       <!--      POPNEWS-->
       <div class="col-2">
 
-        <div class="col mb-4">
+        <div class="col mb-4" *ngFor="let post of loadedPosts.slice(6,9)">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Pop News title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                content. This content is a little bit longer.</p>
-              <img src="assets/img/photography/img1.jpg" class="card-img-top" alt="...">
-            </div>
-          </div>
-        </div>
-        <div class="col mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Pop News title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                content. This content is a little bit longer.</p>
-              <img src="assets/img/photography/img1.jpg" class="card-img-top" alt="...">
-            </div>
-          </div>
-        </div>
-        <div class="col mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Pop News title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                content. This content is a little bit longer.</p>
-              <img src="assets/img/photography/img1.jpg" class="card-img-top" alt="...">
+              <h5 class="card-title">{{post.tittle}}</h5>
+              <p class="card-text">{{post.body}}</p>
+              <img [src]="post.image" class="card-img-top" alt="..." (click)="getPostDetails()" style="cursor: pointer">
             </div>
           </div>
         </div>
@@ -56,42 +36,24 @@
       <!--      SPORT NEWS-->
       <div class="col-3">
 
-        <div class="col mb-4">
+        <div class="col mb-4" *ngFor="let post of loadedPosts.slice(9,12)">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Sport News title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                content. This content is a little bit longer.</p>
-              <img src="assets/img/photography/img1.jpg" class="card-img-top" alt="...">
-            </div>
-          </div>
-        </div>
-        <div class="col mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Sport News title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                content. This content is a little bit longer.</p>
-              <img src="assets/img/photography/img1.jpg" class="card-img-top" alt="...">
-            </div>
-          </div>
-        </div>
-        <div class="col mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Sport News title</h5>
-              <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                content. This content is a little bit longer.</p>
-              <img src="assets/img/photography/img1.jpg" class="card-img-top" alt="...">
+              <h5 class="card-title">{{post.tittle}}</h5>
+              <p class="card-text">{{post.body}}</p>
+              <img [src]="post.image" class="card-img-top" alt="..." (click)="getPostDetails()" style="cursor: pointer">
             </div>
           </div>
         </div>
 
       </div>
     </div>
+
     <!-- Footer and Copyright Part -->
     <div id="footer">
-      <p class="copyright">Copyright &#169;</p>
+      <div class="container text-center">
+        <p class="font-italic text-muted mb-0">&copy; Copyrights Selfmade.com All rights reserved.</p>
+      </div>
       <div class="linke">
         <ul type="">
           <li><a href="http://www.plus.google.com"><img class="image-container" src="assets/img/linkeg.jpg"/></a></li>
