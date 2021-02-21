@@ -26,12 +26,7 @@ export class HomeComponent implements OnInit {
   }
 
   // tslint:disable-next-line:typedef
-  getPosts() {
-    this.fetchPosts();
-  }
-
-  // tslint:disable-next-line:typedef
-  private fetchPosts() {
+   fetchPosts() {
     this.http.get<{ [key: string]: Post }>(REST_API_SERVER).pipe(map(responseData => {
       const postsArray: Post[] = [];
       for (const key in responseData) {
@@ -50,7 +45,15 @@ export class HomeComponent implements OnInit {
   }
 
 
-  getPostDetails(): void {
+  getPostNewsDetails(): void {
     this.router.navigateByUrl('home/news');
+  }
+
+  getPostPopNewsDetails(): void {
+    this.router.navigateByUrl('home/popnews');
+  }
+
+  getPostSportDetails(): void {
+    this.router.navigateByUrl('home/sport');
   }
 }

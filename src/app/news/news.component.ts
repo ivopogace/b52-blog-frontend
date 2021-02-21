@@ -3,8 +3,13 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {AuthService} from '../_services/auth.service';
 import {TokenStorageService} from '../_services/token-storage.service';
+import {PostService} from '../_services/post.service';
+import {Post} from '../home/post.model';
+import {Observable} from 'rxjs';
+import {Router} from '@angular/router';
 
 const REST_API_SERVER = 'http://localhost:8080/api/public/comments';
+const REST_API_SERVER1 = 'http://localhost:8080/api/public/posts';
 
 @Component({
   selector: 'app-news',
@@ -12,17 +17,37 @@ const REST_API_SERVER = 'http://localhost:8080/api/public/comments';
   styleUrls: ['./news.component.css']
 })
 export class NewsComponent implements OnInit {
+  loadedPosts = [];
   loadedComments = [];
   isLoggedIn: boolean;
   currentUser: any;
+  currentComment = null;
 
-  constructor(private  http: HttpClient, private tokenStorageService: TokenStorageService) {
+  constructor(private router: Router, private  http: HttpClient, private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
+    this.fetchPosts();
     this.fetchComments();
     this.currentUser = this.tokenStorageService.getUser();
-    console.log(this.currentUser);
+  }
+
+  // tslint:disable-next-line:typedef
+  fetchPosts() {
+    this.http.get<{ [key: string]: Post }>(REST_API_SERVER1).pipe(map(responseData => {
+      const postsArray: Post[] = [];
+      for (const key in responseData) {
+        if (responseData.hasOwnProperty(key)) {
+          postsArray.push({...responseData[key]});
+        }
+      }
+      return postsArray; // we return an array of posts
+    })).subscribe(posts => {
+        console.log(posts);
+        // @ts-ignore
+        this.loadedPosts = posts;
+      }
+    );
 
   }
 
@@ -30,7 +55,7 @@ export class NewsComponent implements OnInit {
   onCreateComment(postComment: { comment: string }) {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     // Send Http request
-    if (this.isLoggedIn) {
+    if (this.isLoggedIn && postComment.comment.length !== 0) {
       this.http
         .post(
           REST_API_SERVER,
@@ -41,10 +66,6 @@ export class NewsComponent implements OnInit {
         });
     }
 
-  }
-
-  onGetComments(): void {
-    this.fetchComments();
   }
 
   private fetchComments(): void {
@@ -62,4 +83,24 @@ export class NewsComponent implements OnInit {
       }
     );
   }
+
+  delete(id): Observable<any> {
+
+    return this.http.delete(`${REST_API_SERVER}/${id}`);
+  }
+
+  deleteComment(): void {
+    for (this.currentComment of this.loadedComments) {
+    this.delete(this.currentComment.id)
+      .subscribe(
+        response => {
+          console.log(response);
+          this.router.navigate(['/home/news']);
+        },
+        error => {
+          console.log(error);
+        });
+    }
+  }
+
 }

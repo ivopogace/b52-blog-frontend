@@ -1,7 +1,7 @@
 export interface Post {
   id?: number;
   body: string;
-  createdAt: string;
+  createdDate: string;
   image: string;
   status: string;
   categoryId: number;
