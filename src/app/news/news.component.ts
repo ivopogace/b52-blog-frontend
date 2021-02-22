@@ -1,14 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {AuthService} from '../_services/auth.service';
 import {TokenStorageService} from '../_services/token-storage.service';
 import {PostService} from '../_services/post.service';
 import {Post} from '../home/post.model';
 import {Observable} from 'rxjs';
 import {Router} from '@angular/router';
+import {CommentService} from '../_services/comment.service';
 
 const REST_API_SERVER = 'http://localhost:8080/api/public/comments';
+const REST_API_SERVER2 = 'http://localhost:8080/api/public/posts/${id}/comments';
 const REST_API_SERVER1 = 'http://localhost:8080/api/public/posts';
 
 @Component({
@@ -22,76 +24,45 @@ export class NewsComponent implements OnInit {
   isLoggedIn: boolean;
   currentUser: any;
   currentComment = null;
+  private id: any;
 
-  constructor(private router: Router, private  http: HttpClient, private tokenStorageService: TokenStorageService) {
+
+  // tslint:disable-next-line:max-line-length
+  constructor(private router: Router, private  http: HttpClient, private tokenStorageService: TokenStorageService, private commentService: CommentService, private postService: PostService) {
   }
 
   ngOnInit(): void {
-    this.fetchPosts();
-    this.fetchComments();
+    this.postService.fetchPosts().subscribe(posts => this.loadedPosts = posts);
+    this.commentService.fetchComments().subscribe(comments => this.loadedComments = comments);
     this.currentUser = this.tokenStorageService.getUser();
-  }
-
-  // tslint:disable-next-line:typedef
-  fetchPosts() {
-    this.http.get<{ [key: string]: Post }>(REST_API_SERVER1).pipe(map(responseData => {
-      const postsArray: Post[] = [];
-      for (const key in responseData) {
-        if (responseData.hasOwnProperty(key)) {
-          postsArray.push({...responseData[key]});
-        }
-      }
-      return postsArray; // we return an array of posts
-    })).subscribe(posts => {
-        console.log(posts);
-        // @ts-ignore
-        this.loadedPosts = posts;
-      }
-    );
 
   }
 
+
+
   // tslint:disable-next-line:typedef
-  onCreateComment(postComment: { comment: string }) {
+  onCreateComment(newComment) {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     // Send Http request
-    if (this.isLoggedIn && postComment.comment.length !== 0) {
-      this.http
-        .post(
-          REST_API_SERVER,
-          postComment
-        )
-        .subscribe(responseData => {
-          console.log(responseData);
-        });
+    if (this.isLoggedIn && newComment.comment.length !== 0){
+      this.commentService
+      .addComment(newComment)
+      .subscribe(comment => this.loadedComments.push(comment)
+      );
     }
 
   }
 
-  private fetchComments(): void {
-    this.http.get(REST_API_SERVER).pipe(map(responseData => {
-      const commentsArray = [];
-      for (const key in responseData) {
-        if (responseData.hasOwnProperty(key)) {
-          commentsArray.push({...responseData[key]});
-        }
-      }
-      return commentsArray;
-    })).subscribe(comments => {
-        console.log(comments);
-        this.loadedComments = comments;
-      }
-    );
-  }
 
-  delete(id): Observable<any> {
+
+  deleteCommentById(id): Observable<any> {
 
     return this.http.delete(`${REST_API_SERVER}/${id}`);
   }
 
   deleteComment(): void {
     for (this.currentComment of this.loadedComments) {
-    this.delete(this.currentComment.id)
+    this.deleteCommentById(this.currentComment.id)
       .subscribe(
         response => {
           console.log(response);
@@ -102,5 +73,10 @@ export class NewsComponent implements OnInit {
         });
     }
   }
+
+
+
+
+
 
 }

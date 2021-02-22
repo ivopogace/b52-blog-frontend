@@ -22,26 +22,7 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.fetchPosts();
-  }
-
-  // tslint:disable-next-line:typedef
-   fetchPosts() {
-    this.http.get<{ [key: string]: Post }>(REST_API_SERVER).pipe(map(responseData => {
-      const postsArray: Post[] = [];
-      for (const key in responseData) {
-        if (responseData.hasOwnProperty(key)) {
-          postsArray.push({...responseData[key]});
-        }
-      }
-      return postsArray; // we return an array of posts
-    })).subscribe(posts => {
-        console.log(posts);
-        // @ts-ignore
-        this.loadedPosts = posts;
-      }
-    );
-
+    this.postService.fetchPosts().subscribe(posts => this.loadedPosts = posts);
   }
 
 
