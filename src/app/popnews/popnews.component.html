@@ -62,6 +62,21 @@
       <hr>
       <p class="card-text">{{post.body}}</p>
       <hr>
+
+      <form #postForm="ngForm" (ngSubmit)="onCreateCommentByPostId(post.id, postForm.value)">
+        <div class="form-group">
+
+          <label for="comment"><span class="card-title font-weight-bold">Leave a Comment</span></label>
+          <textarea class="form-control" id="comment" rows="4" required ngModel name="comment"></textarea>
+
+
+          <button class="btn btn-outline-primary  mt-2 mr-1" type="submit">Post</button>
+          <button class="btn btn-outline-warning  mt-2 mr-1" type="reset">Clear</button>
+        </div>
+      </form>
+
+      <hr>
+
       <h6 class="card-subtitle"> Comments</h6>
 
       <!-- per post id 7-->
@@ -116,18 +131,6 @@
         </div>
       </div>
 
-
-      <form #postForm="ngForm" (ngSubmit)="onCreateCommentByPostId(post.id, postForm.value)">
-        <div class="form-group">
-
-          <label for="comment"><span class="card-title font-weight-bold">Leave a Comment</span></label>
-          <textarea class="form-control" id="comment" rows="4" required ngModel name="comment"></textarea>
-
-
-          <button class="btn btn-outline-primary  mt-2 mr-1" type="submit">Post</button>
-          <button class="btn btn-outline-warning  mt-2 mr-1" type="reset">Clear</button>
-        </div>
-      </form>
 
     </div>
 

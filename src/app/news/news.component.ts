@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';import {AuthService} from '../_services/auth.service';
+import {HttpClient} from '@angular/common/http';
+import {AuthService} from '../_services/auth.service';
 import {TokenStorageService} from '../_services/token-storage.service';
 import {PostService} from '../_services/post.service';
 import {Router} from '@angular/router';
@@ -67,6 +68,7 @@ export class NewsComponent implements OnInit {
         .subscribe(newComment => {
           this.loadedCommentsById.push(postId, newComment);
           console.log(this.loadedCommentsById);
+          this.ngOnInit();
         });
     }
   }
@@ -75,6 +77,7 @@ export class NewsComponent implements OnInit {
   // tslint:disable-next-line:typedef
   onDelete(id) {
     this.commentService.deleteCommentById(id);
+    this.ngOnInit();
   }
 
 

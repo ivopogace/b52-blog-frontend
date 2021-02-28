@@ -64,6 +64,7 @@ export class SportComponent implements OnInit {
         .subscribe(newComment => {
           this.loadedCommentsById.push(postId, newComment);
           console.log(this.loadedCommentsById);
+          this.ngOnInit();
         });
     }
   }
@@ -72,6 +73,7 @@ export class SportComponent implements OnInit {
   // tslint:disable-next-line:typedef
   onDelete(id) {
     this.commentService.deleteCommentById(id);
+    this.ngOnInit();
   }
 
 }

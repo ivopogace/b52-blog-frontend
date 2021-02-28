@@ -63,40 +63,19 @@ export class PopnewsComponent implements OnInit {
         .subscribe(newComment => {
           this.loadedCommentsById.push(postId, newComment);
           console.log(this.loadedCommentsById);
+          this.ngOnInit();
         });
     }
   }
 
 
-  // // tslint:disable-next-line:typedef
-  // onCreateCommentByPostId(postId, newComment) {
-  //   this.isLoggedIn = !!this.tokenStorageService.getToken();
-  //   // Send Http request
-  //   if (this.isLoggedIn && newComment.comment.length > 0){
-  //     this.commentService
-  //       .addCommentByPostId(postId, newComment)
-  //       .subscribe(comment => {
-  //         this.loadedCommentsByPostId7.push(comment);
-  //         console.log(comment);
-  //         console.log('---------------------------------');
-  //         // tslint:disable-next-line:align
-  //       }); return this.loadedCommentsByPostId7;
-  //   }
-  // }
-
 
 
   // tslint:disable-next-line:typedef
     onDelete(id) {
-    if (true){
       this.commentService.deleteCommentById(id);
-
-    }
+      this.ngOnInit();
   }
 
 
-  // tslint:disable-next-line:typedef
-  liveFetchTheNewlyCreatedComment($event: MouseEvent) {
-    // console.log(this.postid = this.loadedPosts.map(res => this.postid = res.id) );
-  }
 }
