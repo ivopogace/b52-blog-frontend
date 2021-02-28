@@ -1,10 +1,13 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import {Post} from '../home/post.model';
 
 
 const REST_API_SERVER = 'http://localhost:8080/api/public/comments';
+const REST_API_SERVER1 = 'http://localhost:8080/api/public/posts';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +20,15 @@ export class CommentService {
   /** POST: add a new comment to the database */
   addComment(comment: Comment): Observable<Comment> {
     return this.http.post<Comment>(REST_API_SERVER, comment);
+  }  /** POST: add a new comment to the database */
+
+  addCommentByPostId(postId: Post, comment: Comment): Observable<Comment> {
+    return this.http.post<Comment>(`${REST_API_SERVER1}/${postId}/comments`, comment);
+  }
+
+  deleteCommentById(id): Subscription {
+
+    return this.http.delete(`${REST_API_SERVER}/${id}`).subscribe();
   }
 
   fetchComments(): Observable<any[]> {
@@ -28,6 +40,21 @@ export class CommentService {
         }
       }
       return commentsArray;
+    }));
+  }
+
+
+  fetchCommentsByPostsID(id): Observable<any[]> {
+    return this.http.get(`${REST_API_SERVER1}/${id}/comments`).pipe(map(responseData => {
+      const commentsArrayByPostsID = [];
+      for (const key in responseData) {
+        if (responseData.hasOwnProperty(key)) {
+          commentsArrayByPostsID.push({...responseData[key]});
+
+        }
+      }
+      console.log(commentsArrayByPostsID);
+      return commentsArrayByPostsID;
     }));
   }
 

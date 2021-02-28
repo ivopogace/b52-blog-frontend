@@ -18,14 +18,8 @@ export class PostService {
   }
 
 
-  getPosts(): void {
-    // @ts-ignore
-    this.loadedPosts = this.fetchPosts();
-
-  }
-
   // tslint:disable-next-line:typedef
-    fetchPosts() {
+  fetchPosts() {
     return this.http.get<{ [key: string]: Post }>(REST_API_SERVER).pipe(map(responseData => {
       const postsArray: Post[] = [];
       for (const key in responseData) {
