@@ -7,7 +7,7 @@ import {TokenStorageService} from './_services/token-storage.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'b52-blog-frontend';
+  title = 'Wine-Blog';
   navbarOpen = false;
   private roles: string[];
   isLoggedIn = false;

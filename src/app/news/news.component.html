@@ -83,7 +83,7 @@
         <div *ngIf="comment.posts.id === post.id " class="card-text">
           <p class="card-body card-text small ">{{comment.comment}}</p>
           <div class="card-text small text-sm-right">
-            <i><a class="card-text " [routerLink]="['/profile']">{{currentUser.username}}
+            <i><a class="card-text " [routerLink]="['/profile']" *ngIf="currentUser.username === comment.posts.users.fullName">{{currentUser.username}}
             </a></i>
             <span class="date-posted">
                 <i>{{ comment.createdDate | date: 'longDate' }}</i>
@@ -100,7 +100,7 @@
         <div *ngIf="comment.posts.id === post.id " class="card-text">
           <p class="card-body card-text small ">{{comment.comment}}</p>
           <div class="card-text small text-sm-right">
-            <i><a class="card-text " [routerLink]="['/profile']">{{currentUser.username}}
+            <i><a class="card-text " [routerLink]="['/profile']" *ngIf="currentUser.username === comment.posts.users.fullName">{{currentUser.username}}
             </a></i>
             <span class="date-posted">
                 <i>{{ comment.createdDate | date: 'longDate' }}</i>
@@ -118,7 +118,7 @@
         <div *ngIf="comment.posts.id === post.id " class="card-text">
           <p class="card-body card-text small ">{{comment.comment}}</p>
           <div class="card-text small text-sm-right">
-            <i><a class="card-text " [routerLink]="['/profile']">{{currentUser.username}}
+            <i><a class="card-text " [routerLink]="['/profile']" *ngIf="currentUser.username === comment.posts.users.fullName">{{currentUser.username}}
             </a></i>
             <span class="date-posted">
                 <i>{{ comment.createdDate | date: 'longDate' }}</i>
