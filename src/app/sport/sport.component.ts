@@ -70,7 +70,7 @@ export class SportComponent implements OnInit {
     };
     this.isLoggedIn = !!this.tokenStorageService.getToken();
     // Send Http request
-    if (this.isLoggedIn){
+    if (this.isLoggedIn && comment.comment.length > 0){
       this.commentService
         .addCommentByPostId(postId, comment)
         .subscribe(  newComment => {
