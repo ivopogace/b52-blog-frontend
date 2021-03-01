@@ -62,11 +62,21 @@
       <p class="card-text">{{post.body}}</p>
       <hr>
 
-      <form #postForm="ngForm" (ngSubmit)="onCreateCommentByPostId(post.id, postForm.value)">
+      <form [formGroup]="commentForm" (ngSubmit)="onCreateCommentByPostId(post.id)">
         <div class="form-group">
 
-          <label for="comment"><span class="card-title font-weight-bold">Leave a Comment</span></label>
-          <textarea class="form-control" id="comment" rows="4" required ngModel name="comment"></textarea>
+          <label for="message1"><span class="card-title font-weight-bold">Leave a Comment</span></label>
+          <textarea class="form-control" id="message1" formControlName="message1"  placeholder="Message"></textarea>
+
+          <label for="author"></label>
+          <input
+            class="form-control"
+            id="author"
+            type="text"
+            hidden
+            [(ngModel)]="currentUser.username"
+            formControlName="author"
+          >
 
 
           <button class="btn btn-outline-primary  mt-2 mr-1" type="submit">Post</button>
@@ -83,8 +93,8 @@
         <div *ngIf="comment.posts.id === post.id " class="card-text">
           <p class="card-body card-text small ">{{comment.comment}}</p>
           <div class="card-text small text-sm-right">
-            <i><a class="card-text " [routerLink]="['/profile']" *ngIf="currentUser.username === comment.posts.users.fullName">{{currentUser.username}}
-            </a></i>
+            <i class="card-text" > {{comment.author}}
+            </i>
             <span class="date-posted">
                 <i>{{ comment.createdDate | date: 'longDate' }}</i>
             </span>
@@ -100,8 +110,8 @@
         <div *ngIf="comment.posts.id === post.id " class="card-text">
           <p class="card-body card-text small ">{{comment.comment}}</p>
           <div class="card-text small text-sm-right">
-            <i><a class="card-text " [routerLink]="['/profile']" *ngIf="currentUser.username === comment.posts.users.fullName">{{currentUser.username}}
-            </a></i>
+            <i class="card-text" > {{comment.author}}
+            </i>
             <span class="date-posted">
                 <i>{{ comment.createdDate | date: 'longDate' }}</i>
             </span>
@@ -118,8 +128,8 @@
         <div *ngIf="comment.posts.id === post.id " class="card-text">
           <p class="card-body card-text small ">{{comment.comment}}</p>
           <div class="card-text small text-sm-right">
-            <i><a class="card-text " [routerLink]="['/profile']" *ngIf="currentUser.username === comment.posts.users.fullName">{{currentUser.username}}
-            </a></i>
+            <i class="card-text" > {{comment.author}}
+            </i>
             <span class="date-posted">
                 <i>{{ comment.createdDate | date: 'longDate' }}</i>
             </span>

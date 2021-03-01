@@ -13,7 +13,7 @@ import { RegisterComponent } from './home/register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -58,6 +58,7 @@ const appRoutes: Routes = [
     MatProgressSpinnerModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
