@@ -99,9 +99,17 @@
                 <i>{{ comment.createdDate | date: 'longDate' }}</i>
             </span>
           </div>
-          <button class="btn btn-sm btn-outline-danger mt-2 mb-2" type="submit" *ngIf="currentUser.username === comment.posts.users.fullName" (click)="onDelete(comment.id)">
+
+          <div *ngIf="currentUser.roles == 'ROLE_ADMIN'; else other">
+            <button class="btn btn-sm btn-outline-danger mt-2 mb-2" type="submit"  (click)="onDelete(comment.id)">
             Delete
           </button>
+          </div>
+
+          <ng-template #other><button class="btn btn-sm btn-outline-danger mt-2 mb-2" type="submit" *ngIf="currentUser.username === comment.author" (click)="onDelete(comment.id)">
+            Delete
+          </button></ng-template>
+
         </div>
       </div>
 
