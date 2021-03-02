@@ -8,6 +8,7 @@ import {CommentService} from '../_services/comment.service';
 import {Profile} from '../models/profile.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommentModel} from '../models/comment.model';
+import {EventEmitter} from '@angular/core';
 
 const REST_API_SERVER = 'http://localhost:8080/api/public/comments';
 
@@ -26,9 +27,10 @@ export class NewsComponent implements OnInit {
   loadedCommentsByPostId3 = [];
   isLoggedIn: boolean;
   currentUser: Profile;
-  postid: any;
   date: Date;
   commentForm: FormGroup;
+  searchText: string;
+
   // tslint:disable-next-line:max-line-length
   constructor( private fb: FormBuilder, private router: Router, private  http: HttpClient, private tokenStorageService: TokenStorageService, private commentService: CommentService, private postService: PostService) {
   }
@@ -92,6 +94,26 @@ export class NewsComponent implements OnInit {
   onDelete(id) {
     this.commentService.deleteCommentById(id).subscribe(r => this.ngOnInit());
   }
+
+  // tslint:disable-next-line:typedef
+  search() {
+    if (this.searchText !== ''){
+      // tslint:disable-next-line:max-line-length
+      this.loadedCommentsByPostId1 = this.loadedCommentsByPostId1.filter(res => res.comment.toLocaleLowerCase().match(this.searchText.toLocaleLowerCase()) );
+      // tslint:disable-next-line:max-line-length
+      this.loadedCommentsByPostId2 = this.loadedCommentsByPostId2.filter(res => res.comment.toLocaleLowerCase().match(this.searchText.toLocaleLowerCase()) );
+      // tslint:disable-next-line:max-line-length
+      this.loadedCommentsByPostId3 = this.loadedCommentsByPostId3.filter(res => res.comment.toLocaleLowerCase().match(this.searchText.toLocaleLowerCase()) );
+    } else if (this.searchText === '') {
+      this.ngOnInit();
+    }
+  }
+
+  // tslint:disable-next-line:typedef
+  onKeydown(event) {
+    this.ngOnInit();
+  }
+
 
 
 }

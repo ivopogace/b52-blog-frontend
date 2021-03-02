@@ -1,5 +1,5 @@
-<div class="container-fluid">
-  <div class="col-md-6">
+<div class="container pt-5">
+  <div class="row-cols-md-6">
     <div class="card card-container">
       <img
         id="profile-img"
@@ -73,27 +73,31 @@
         </div>
       </form>
 
-      <div class="alert alert-success" *ngIf="isLoggedIn">
+      <div class="alert alert-success " *ngIf="isLoggedIn">
         Logged in as {{ roles }}.
       </div>
     </div>
   </div>
 
+
   <!-- Footer and Copyright Part -->
-  <div id="footer">
-    <div class="container text-center">
-      <p class="font-italic text-muted mb-0">&copy; Copyrights Selfmade.com All rights reserved.</p>
-    </div>
-    <div class="linke">
-      <ul type="">
-        <li><a href="http://www.plus.google.com"><img class="image-container" src="assets/img/linkeg.jpg" alt=""/></a>
-        </li>
-        <li><a href="http://www.picasa.google.com"><img class="image-container" src="assets/img/linkep.jpg" alt=""/></a>
-        </li>
-        <li><a href="http://www.twitter.com"><img class="image-container" src="assets/img/linket.jpg" alt=""/></a></li>
-        <li><a href="http://www.facebook.com"><img class="image-container" src="assets/img/linkef.jpg" alt=""/></a></li>
-      </ul>
+  <div class="row py-5">
+    <div id="footer">
+      <div class="container text-center">
+        <p class="font-italic text-muted mb-0">&copy; Copyrights Selfmade.com All rights reserved.</p>
+      </div>
+      <div class="linke">
+        <ul type="">
+          <li><a href="http://www.plus.google.com"><img class="image-container" src="assets/img/linkeg.jpg" alt=""/></a>
+          </li>
+          <li><a href="http://www.picasa.google.com"><img class="image-container" src="assets/img/linkep.jpg" alt=""/></a>
+          </li>
+          <li><a href="http://www.twitter.com"><img class="image-container" src="assets/img/linket.jpg" alt=""/></a></li>
+          <li><a href="http://www.facebook.com"><img class="image-container" src="assets/img/linkef.jpg" alt=""/></a></li>
+        </ul>
+      </div>
     </div>
   </div>
+
 
 </div>

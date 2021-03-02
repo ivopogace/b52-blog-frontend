@@ -26,6 +26,7 @@ export class SportComponent implements OnInit {
   postid: any;
   date: Date;
   commentForm: FormGroup;
+  searchText: string;
 
   // tslint:disable-next-line:max-line-length
   constructor(private fb: FormBuilder, private router: Router, private  http: HttpClient, private tokenStorageService: TokenStorageService, private postService: PostService, private commentService: CommentService) {
@@ -86,5 +87,26 @@ export class SportComponent implements OnInit {
   onDelete(id) {
     this.commentService.deleteCommentById(id).subscribe(r => this.ngOnInit());
   }
+
+  // tslint:disable-next-line:typedef
+  search() {
+    if (this.searchText !== ''){
+      // tslint:disable-next-line:max-line-length
+      this.loadedCommentsByPostId10 = this.loadedCommentsByPostId10.filter(res => res.comment.toLocaleLowerCase().match(this.searchText.toLocaleLowerCase()) );
+      // tslint:disable-next-line:max-line-length
+      this.loadedCommentsByPostId11 = this.loadedCommentsByPostId11.filter(res => res.comment.toLocaleLowerCase().match(this.searchText.toLocaleLowerCase()) );
+      // tslint:disable-next-line:max-line-length
+      this.loadedCommentsByPostId12 = this.loadedCommentsByPostId12.filter(res => res.comment.toLocaleLowerCase().match(this.searchText.toLocaleLowerCase()) );
+    } else if (this.searchText === '') {
+      this.ngOnInit();
+    }
+  }
+
+  // tslint:disable-next-line:typedef
+  onKeydown(event) {
+    this.ngOnInit();
+  }
+
+
 
 }

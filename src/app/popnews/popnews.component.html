@@ -1,5 +1,18 @@
-<div class="container-fluid">
-  <hr>
+<div class="container  pt-5">
+  <div class="row row-cols-lg-1 row-cols-lg-2 row-cols-lg-3 ">
+    <div class="col col-1"></div>
+    <div class="col col-2"></div>
+    <div class="col col-3">
+      <form class=" form-group">
+        <input class="form-control" type="search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}"
+               (keydown.backspace)="onKeydown($event)" (input)="search()" placeholder="Search Comment"
+               aria-label="Search">
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container">
   <div class="row" *ngIf="!currentUser">
 
     <div class="col-lg-4" *ngFor="let post of loadedPosts.slice(9,12)">
@@ -153,8 +166,8 @@
   </div>
 
 
-  <div class="row">
     <!-- Footer and Copyright Part -->
+  <div class="row py-5">
     <div id="footer">
       <div class="container text-center">
         <p class="font-italic text-muted mb-0">&copy; Copyrights Selfmade.com All rights reserved.</p>
@@ -173,6 +186,7 @@
       </div>
     </div>
   </div>
+
 
 </div>
 

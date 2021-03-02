@@ -1,4 +1,4 @@
-<div class="container" *ngIf="currentUser; else loggedOut">
+<div class="container pt-5" *ngIf="currentUser; else loggedOut">
   <header class="jumbotron">
     <h3>
       <strong>{{ currentUser.username }}</strong> Profile
@@ -25,25 +25,29 @@
       {{ permission }}
     </li>
   </ul>
+
+
+  <!-- Footer and Copyright Part -->
+  <div class="row py-5">
+    <div id="footer">
+      <div class="container text-center ">
+        <p class="font-italic text-muted mb-0">&copy; Copyrights Selfmade.com All rights reserved.</p>
+      </div>
+      <div class="linke">
+        <ul type="">
+          <li><a href="http://www.plus.google.com"><img class="image-container" src="assets/img/linkeg.jpg"/></a></li>
+          <li><a href="http://www.picasa.google.com"><img class="image-container" src="assets/img/linkep.jpg"/></a></li>
+          <li><a href="http://www.twitter.com"><img class="image-container" src="assets/img/linket.jpg"/></a></li>
+          <li><a href="http://www.facebook.com"><img class="image-container" src="assets/img/linkef.jpg"/></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
 </div>
+
+
 
 <ng-template #loggedOut>
   Please login.
 </ng-template>
-
-<div class="row">
-  <!-- Footer and Copyright Part -->
-  <div id="footer">
-    <div class="container text-center">
-      <p class="font-italic text-muted mb-0">&copy; Copyrights Selfmade.com All rights reserved.</p>
-    </div>
-    <div class="linke">
-      <ul type="">
-        <li><a href="http://www.plus.google.com"><img class="image-container" src="assets/img/linkeg.jpg"/></a></li>
-        <li><a href="http://www.picasa.google.com"><img class="image-container" src="assets/img/linkep.jpg"/></a></li>
-        <li><a href="http://www.twitter.com"><img class="image-container" src="assets/img/linket.jpg"/></a></li>
-        <li><a href="http://www.facebook.com"><img class="image-container" src="assets/img/linkef.jpg"/></a></li>
-      </ul>
-    </div>
-  </div>
-</div>

@@ -27,6 +27,8 @@ export class PopnewsComponent implements OnInit {
   postid: any;
   date: Date;
   commentForm: FormGroup;
+  searchText: string;
+
   // tslint:disable-next-line:max-line-length
   constructor(private fb: FormBuilder, private router: Router, private  http: HttpClient, private tokenStorageService: TokenStorageService, private postService: PostService, private commentService: CommentService) {
   }
@@ -87,6 +89,27 @@ export class PopnewsComponent implements OnInit {
     onDelete(id) {
       this.commentService.deleteCommentById(id).subscribe(r => this.ngOnInit());
   }
+
+  // tslint:disable-next-line:typedef
+  search() {
+    if (this.searchText !== ''){
+      // tslint:disable-next-line:max-line-length
+      this.loadedCommentsByPostId7 = this.loadedCommentsByPostId7.filter(res => res.comment.toLocaleLowerCase().match(this.searchText.toLocaleLowerCase()) );
+      // tslint:disable-next-line:max-line-length
+      this.loadedCommentsByPostId8 = this.loadedCommentsByPostId8.filter(res => res.comment.toLocaleLowerCase().match(this.searchText.toLocaleLowerCase()) );
+      // tslint:disable-next-line:max-line-length
+      this.loadedCommentsByPostId9 = this.loadedCommentsByPostId9.filter(res => res.comment.toLocaleLowerCase().match(this.searchText.toLocaleLowerCase()) );
+    } else if (this.searchText === '') {
+      this.ngOnInit();
+    }
+  }
+
+  // tslint:disable-next-line:typedef
+  onKeydown(event) {
+    this.ngOnInit();
+  }
+
+
 
 
 }
