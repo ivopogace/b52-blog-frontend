@@ -92,6 +92,7 @@
       <!-- per post id 10-->
       <div *ngFor="let comment of loadedCommentsByPostId10 " class="card-text">
         <div *ngIf="comment.posts.id === post.id " class="card-text">
+          <hr>
           <p class="card-body card-text small ">{{comment.comment}}</p>
           <div class="card-text small text-sm-right">
             <i class="card-text" > {{comment.author}}
@@ -117,6 +118,7 @@
       <!-- per post id 11-->
       <div *ngFor="let comment of loadedCommentsByPostId11 " class="card-text">
         <div *ngIf="comment.posts.id === post.id " class="card-text">
+          <hr>
           <p class="card-body card-text small ">{{comment.comment}}</p>
           <div class="card-text small text-sm-right">
             <i class="card-text" > {{comment.author}}
@@ -126,9 +128,16 @@
             </span>
           </div>
 
-          <button class="btn btn-sm btn-outline-danger mt-2 mb-2" type="submit" *ngIf="currentUser.username === comment.posts.users.fullName" (click)="onDelete(comment.id)">
+          <div *ngIf="currentUser.roles == 'ROLE_ADMIN'; else other">
+            <button class="btn btn-sm btn-outline-danger mt-2 mb-2" type="submit"  (click)="onDelete(comment.id)">
+              Delete
+            </button>
+          </div>
+
+          <ng-template #other><button class="btn btn-sm btn-outline-danger mt-2 mb-2" type="submit" *ngIf="currentUser.username === comment.author" (click)="onDelete(comment.id)">
             Delete
           </button>
+          </ng-template>
         </div>
       </div>
 
@@ -136,6 +145,7 @@
       <!-- per post id 12-->
       <div *ngFor="let comment of loadedCommentsByPostId12" class="card-text">
         <div *ngIf="comment.posts.id === post.id " class="card-text">
+          <hr>
           <p class="card-body card-text small ">{{comment.comment}}</p>
           <div class="card-text small text-sm-right">
             <i class="card-text" > {{comment.author}}
@@ -145,9 +155,16 @@
             </span>
           </div>
 
-          <button class="btn btn-sm btn-outline-danger mt-2 mb-2" type="submit" *ngIf="currentUser.username === comment.author" (click)="onDelete(comment.id)">
+          <div *ngIf="currentUser.roles == 'ROLE_ADMIN'; else other">
+            <button class="btn btn-sm btn-outline-danger mt-2 mb-2" type="submit"  (click)="onDelete(comment.id)">
+              Delete
+            </button>
+          </div>
+
+          <ng-template #other><button class="btn btn-sm btn-outline-danger mt-2 mb-2" type="submit" *ngIf="currentUser.username === comment.author" (click)="onDelete(comment.id)">
             Delete
           </button>
+          </ng-template>
         </div>
       </div>
 
