@@ -61,7 +61,7 @@
       <hr>
       <h5 class="card-title">{{post.tittle}}</h5>
       <hr>
-      <p class="card-text">{{post.body}}</p>
+      <p class="card-text" style="height: 100px">{{post.body}}</p>
       <hr>
 
       <form [formGroup]="commentForm" (ngSubmit)="onCreateCommentByPostId(post.id)">

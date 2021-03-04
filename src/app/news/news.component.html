@@ -51,7 +51,7 @@
     </div>
   </div>
 
-  <div class="row" *ngIf="currentUser">
+  <div class="row " *ngIf="currentUser">
 
     <div class="col-lg-4" *ngFor="let post of loadedPosts.slice(0,3)">
 
@@ -60,7 +60,7 @@
       <hr>
       <h5 class="card-title">{{post.tittle}}</h5>
       <hr>
-      <p class="card-text">{{post.body}}</p>
+      <p class="card-text" style="height: 100px">{{post.body}}</p>
       <hr>
 
       <form [formGroup]="commentForm" (ngSubmit)="onCreateCommentByPostId(post.id)">
@@ -115,8 +115,8 @@
       </div>
 
       <!-- per post id 2-->
-      <div *ngFor="let comment of loadedCommentsByPostId2 " class="card-text">
-        <div *ngIf="comment.posts.id === post.id " class="card-text">
+      <div *ngFor="let comment of loadedCommentsByPostId2 " class="card-text ">
+        <div *ngIf="comment.posts.id === post.id " class="card-text ">
           <hr>
           <p class="card-body card-text small ">{{comment.comment}}</p>
           <div class="card-text small text-sm-right">
