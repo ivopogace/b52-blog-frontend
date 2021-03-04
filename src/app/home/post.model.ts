@@ -5,6 +5,6 @@ export interface Post {
   image: string;
   status: string;
   tittle: string;
-  categoryId: number;
+  userId: number;
 
 }

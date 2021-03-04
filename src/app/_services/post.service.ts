@@ -5,6 +5,7 @@ import {catchError, map, tap} from 'rxjs/operators';
 import {Post} from '../home/post.model';
 
 const REST_API_SERVER = 'http://localhost:8080/api/public/posts';
+const REST_API_SERVER1 = 'http://localhost:8080/api/public/users';
 const REST_API_SERVER2 = 'http://localhost:8080/api/public/category/{id}/posts';
 
 
@@ -27,6 +28,7 @@ export class PostService {
           postsArray.push({...responseData[key]});
         }
       }
+      console.log(postsArray);
       return postsArray;
     }));
   }
@@ -66,5 +68,29 @@ export class PostService {
       tap(_ => this.log(`fetched Post id=${id}`)),
       catchError(this.handleError<any>(`getPost id=${id}`))
     );
+  }
+
+  /** GET Post by userId. Will 404 if id not found */
+  getPostByUserId(id: number, post): Observable<any> {
+    const url = `${REST_API_SERVER1}/${id}/posts`;
+    return this.http.get<any>(url, post).pipe(
+      tap(_ => this.log(`fetched Post id=${id}`)),
+      catchError(this.handleError<any>(`getPost id=${id}`))
+    );
+  }
+  /** POST Post by userId. Will 404 if id not found */
+  createPostByUserId(id: number, post): Observable<any> {
+    const url = `${REST_API_SERVER1}/${id}/posts`;
+    return this.http.get<any>(url, post).pipe(
+            catchError(this.handleError<any>(`getPost id=${id}`))
+    );
+  }
+
+  update(id, post): Observable<any> {
+    const url = `${REST_API_SERVER1}/${id}/posts`;
+    return this.http.put<any>(url, post)
+      .pipe(
+        catchError(this.handleError<any>(`Update Product= ${id}`))
+      );
   }
 }

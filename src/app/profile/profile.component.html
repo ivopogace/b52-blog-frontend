@@ -8,7 +8,7 @@
               <img src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" alt="Admin"
                    class="rounded-circle" width="150">
               <div class="mt-3">
-                <h4>{{currentUser.username}}</h4>
+                <h4><i>{{currentUser.username}}</i></h4>
                 <a class="btn btn-outline-primary" href="mailto:{{currentUser.email}}">Email</a>
               </div>
             </div>
@@ -70,6 +70,94 @@
           </div>
         </div>
       </div>
+      <!--pjesa e titullit update prduct nga ana e majte-->
+      <div class="col-md-4 mb-3 mt-5" *ngIf="currentUser.roles == 'ROLE_ADMIN'">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <div class="card-text">
+                <h4><i>Update Product</i></h4>
+              </div>
+              <div class="mt-3">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Pjesa e te dhenavew te produktit per tu updatuar-->
+      <div class="col-md-8 mt-5" *ngIf="currentUser.roles == 'ROLE_ADMIN'">
+        <div class="card mb-3">
+
+
+          <form [formGroup]="postForm" (ngSubmit)="onSubmit(currentUser.id)">
+            <div class="card-body">
+
+              <div class="row">
+                <div class="form-group col-sm-3 mb-0">
+                  <label class="form-group" for="postSelected">Select Product</label>
+                </div>
+                  <select id="postSelected" [(ngModel)]="id" class="form-control col-sm-9 text-secondary" formControlName="id"  >
+                    <option *ngFor="let post of loadedPostsByName;let i = index"  value="{{i+1}}">{{post.tittle}}</option>
+                  </select>
+              </div>
+              <hr>
+<!--              <div class="form-group">-->
+<!--                <label>-->
+<!--                  <input type="text"  class="form-control" formArrayName="users" name="id" hidden value="{{currentUser.id}}" />-->
+<!--                </label>-->
+<!--              </div>-->
+
+              <div class="row">
+                <div class="form-group col-sm-3 mb-0">
+                  <label for="tittle" class="">Tittle</label>
+                </div>
+                <input id="tittle" class="form-control col-sm-9 text-secondary" formControlName="tittle">
+              </div>
+
+              <hr>
+
+              <div class="row">
+
+                <div class="form-group col-sm-3 mb-0">
+                  <label class="" for="body">Description</label>
+                </div>
+
+                <textarea id="body" class="form-control col-sm-9 text-secondary" formControlName="body" rows="4"></textarea>
+              </div>
+
+              <hr>
+
+              <div class="row">
+                <div class="form-group col-sm-3 mb-0">
+                  <label class="" for="image">Image</label>
+                </div>
+                <input type="text" id="image" formControlName="image" [(ngModel)]="image"  class="form-control col-sm-9 text-secondary">
+              </div>
+              <hr>
+
+              <!-- butoni update-->
+                <div class="row row-cols-sm-3">
+                  <div class="col-1">
+                    <div class="col col-sm-1">
+                    </div>
+                  </div>
+                  <div class="col-2">
+                    <div class="col col-sm-2">
+                      <button class="btn btn-sm btn-outline-primary mt-2"  type="submit">
+                        Update
+                      </button>
+                  </div>
+                  <div class="col-3">
+                    <div class="col col-sm-3"></div>
+                  </div>
+                  </div>
+                </div>
+                <!-- fundi i butonit update-->
+            </div>
+          </form>
+        </div>
+      </div>
+      <!--Fundi i pjese se update product dhe ana e majte dhe e djathte-->
     </div>
   </div>
 
@@ -96,7 +184,6 @@
   </div>
 
 </div>
-
 
 
 <ng-template #loggedOut>
