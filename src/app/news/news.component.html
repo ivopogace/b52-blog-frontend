@@ -11,7 +11,7 @@
 
         <div class="card-body">
           <h5 class="card-title">{{post.tittle}}</h5>
-          <p class="card-text">{{post.body}}</p>
+          <p class="card-text" style="height: 100px">{{post.body}}</p>
 
           <!--        <div class="card-body">-->
 
@@ -63,7 +63,7 @@
       <p class="card-text" style="height: 100px">{{post.body}}</p>
       <hr>
 
-      <form [formGroup]="commentForm" (ngSubmit)="onCreateCommentByPostId(post.id)">
+      <form [formGroup]="commentForm" (ngSubmit)="onCreateCommentByPostId(post.id)" >
         <div class="form-group">
 
           <label for="message1"><span class="card-title font-weight-bold">Leave a Comment</span></label>
