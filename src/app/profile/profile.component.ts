@@ -15,6 +15,9 @@ export class ProfileComponent implements OnInit {
   loadedPostToEdit = '';
   postSelected = false;
   postForm: FormGroup;
+  image = '';
+  tittle = '';
+  body = '';
 
   // tslint:disable-next-line:max-line-length
   constructor( private fb: FormBuilder, private postService: PostService, private token: TokenStorageService) {
