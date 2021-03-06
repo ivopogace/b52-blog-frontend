@@ -59,7 +59,6 @@ export class ProfileComponent implements OnInit {
     if (this.postSelected === true) {
     this.postService.getPostByID((id as unknown as number)).subscribe(post => {
       this.loadedPostToEdit = post;
-      console.log(post);
     } );
     }
     console.log('change clicked');
