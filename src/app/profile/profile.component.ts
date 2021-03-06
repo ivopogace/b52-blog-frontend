@@ -14,6 +14,7 @@ export class ProfileComponent implements OnInit {
   loadedPostsByName = [];
   loadedPostToEdit = '';
   postSelected = false;
+  postUpdated = false;
   postForm: FormGroup;
   image = '';
   tittle = '';
@@ -39,7 +40,8 @@ export class ProfileComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   onSubmit(id) {
-   const post = {
+    this.postUpdated = true;
+    const post = {
       id: this.postForm.value.id,
       tittle: this.postForm.value.tittle,
       status: 'PUBLISHED',
@@ -48,10 +50,11 @@ export class ProfileComponent implements OnInit {
 
     };
     // Send Http request
-   this.postService.update(id, post)
+    this.postService.update(id, post)
       .subscribe(updatedPost => {
         console.log(updatedPost);
       });
+    window.location.reload();
   }
 
 
