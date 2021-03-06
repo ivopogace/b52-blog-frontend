@@ -12,8 +12,9 @@ export class ProfileComponent implements OnInit {
   id = '';
   currentUser: any;
   loadedPostsByName = [];
+  loadedPostToEdit = '';
+  postSelected = false;
   postForm: FormGroup;
-  image = 'assets/img/photography/img1.jpg';
 
   // tslint:disable-next-line:max-line-length
   constructor( private fb: FormBuilder, private postService: PostService, private token: TokenStorageService) {
@@ -51,4 +52,16 @@ export class ProfileComponent implements OnInit {
   }
 
 
+  // tslint:disable-next-line:typedef
+  onEdit(id: string) {
+    this.postSelected = true;
+
+    if (this.postSelected === true) {
+    this.postService.getPostByID((id as unknown as number)).subscribe(post => {
+      this.loadedPostToEdit = post;
+      console.log(post);
+    } );
+    }
+    console.log('change clicked');
+  }
 }

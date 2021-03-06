@@ -65,7 +65,6 @@ export class PostService {
   getPostByID(id: number): Observable<any> {
     const url = `${REST_API_SERVER}/${id}`;
     return this.http.get<any>(url).pipe(
-      tap(_ => this.log(`fetched Post id=${id}`)),
       catchError(this.handleError<any>(`getPost id=${id}`))
     );
   }
