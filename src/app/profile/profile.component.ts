@@ -54,8 +54,9 @@ export class ProfileComponent implements OnInit {
       .subscribe(updatedPost => {
         console.log(updatedPost);
       });
-    window.location.reload();
-  }
+    setTimeout(() => {
+      location.reload();
+    }, 1000);  }
 
 
   // tslint:disable-next-line:typedef
