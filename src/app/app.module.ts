@@ -21,6 +21,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {ForgotPasswordComponent} from './home/login/forgot-password.component';
+import {ResetPasswordComponent} from './home/login/reset-password';
 
 
 
@@ -32,8 +34,10 @@ const appRoutes: Routes = [
   {path: 'home/popnews', component: PopnewsComponent},
   {path: 'kontakt', component: KontaktComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'forgot-password', component: ForgotPasswordComponent },
   {path: 'register', component: RegisterComponent},
   {path: 'profile', component: ProfileComponent},
+  {path: 'reset-password', component: ResetPasswordComponent}
   ];
 @NgModule({
   declarations: [
@@ -45,7 +49,9 @@ const appRoutes: Routes = [
     KontaktComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
